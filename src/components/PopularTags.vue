@@ -4,30 +4,30 @@
   <div class="tag-list">
     <AppLink
       v-for="tag in tags"
-      :key="tag"
+      :key="tag._id"
       name="tag"
-      :params="{tag}"
+      :params="{ tag }"
       class="tag-pill tag-default"
     >
-      {{ tag }}
+      {{ tag.name }}
     </AppLink>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useTags } from '../composable/useTags'
+import { defineComponent } from "vue";
+import { useTags } from "../composable/useTags";
 
 export default defineComponent({
-  name: 'PopularTags',
-  async setup () {
-    const { tags, fetchTags } = useTags()
+  name: "PopularTags",
+  async setup() {
+    const { tags, fetchTags } = useTags();
 
-    await fetchTags()
+    await fetchTags();
 
     return {
       tags,
-    }
+    };
   },
-})
+});
 </script>

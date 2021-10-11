@@ -13,8 +13,8 @@ export interface PostRegisterForm {
 
 export type PostRegisterErrors = Partial<Record<keyof PostRegisterForm, string[]>>
 
-export async function postRegister (form: PostRegisterForm): Promise<Either<ValidationError<PostRegisterErrors>, User>> {
-  const result1 = await request.checkablePost<UserResponse>('/users', { user: form })
+export async function postRegister(form: PostRegisterForm): Promise<Either<ValidationError<PostRegisterErrors>, User>> {
+  const result1 = await request.checkablePost<UserResponse>('/signup', { email: form.email, password: form.password })
   const result2 = mapValidationResponse<PostRegisterErrors, UserResponse>(result1)
 
   if (result2.isOk()) return success(result2.value.user)

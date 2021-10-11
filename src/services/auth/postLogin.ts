@@ -12,10 +12,12 @@ export interface PostLoginForm {
 
 export type PostLoginErrors = Partial<Record<keyof PostLoginForm, string[]>>
 
-export async function postLogin (form: PostLoginForm): Promise<Either<ValidationError<PostLoginErrors>, User>> {
-  const result1 = await request.checkablePost<UserResponse>('/users/login', { user: form })
+export async function postLogin(form: PostLoginForm): Promise<Either<ValidationError<PostLoginErrors>, User>> {
+  const result1 = await request.checkablePost<UserResponse>('/login', { ...form })
   const result2 = mapValidationResponse<PostLoginErrors, UserResponse>(result1)
 
-  if (result2.isOk()) return success(result2.value.user)
+
+
+  if (result2.isOk()) return success(result1.data)
   else return fail(result2.value)
 }

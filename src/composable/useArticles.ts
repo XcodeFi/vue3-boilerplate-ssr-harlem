@@ -12,16 +12,18 @@ import {
 } from '../services/article/getArticles'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
-export function useArticles () {
+export function useArticles() {
   const { articlesType, tag, username, metaChanged } = getArticlesMeta()
 
   const articles = ref<Article[]>([])
   const articlesCount = ref(0)
   const page = ref(1)
 
-  async function fetchArticles (): Promise<void> {
+  async function fetchArticles(): Promise<void> {
     articles.value = []
     let responsePromise: null | Promise<ArticlesResponse> = null
+
+    debugger;
 
     if (articlesType.value === 'my-feed') {
       responsePromise = getFeeds(page.value)
@@ -98,7 +100,7 @@ interface GetArticlesMetaReturn {
   articlesType: ComputedRef<ArticlesType>
   metaChanged: ComputedRef<string>
 }
-function getArticlesMeta (): GetArticlesMetaReturn {
+function getArticlesMeta(): GetArticlesMetaReturn {
   const route = useRoute()
 
   const tag = ref('')

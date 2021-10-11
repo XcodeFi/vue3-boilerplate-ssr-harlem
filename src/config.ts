@@ -1,3 +1,3 @@
 export const CONFIG = {
-  API_HOST: 'https://conduit.productionready.io',
+  API_HOST: 'http://localhost:4000',
 }

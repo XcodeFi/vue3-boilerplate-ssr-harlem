@@ -4,7 +4,7 @@ import FetchRequest from '../utils/request'
 export const limit = 10
 
 export const request = new FetchRequest({
-  prefix: `${CONFIG.API_HOST}/api`,
+  prefix: `${CONFIG.API_HOST}`,
   headers: {
     'Content-Type': 'application/json',
   },

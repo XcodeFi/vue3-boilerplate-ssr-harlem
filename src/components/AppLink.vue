@@ -1,41 +1,43 @@
 <template>
-  <a
-    :href="href"
-    :class="linkActiveClass"
-    @click.prevent="go"
-  >
+  <a :href="href" :class="linkActiveClass" @click.prevent="go">
     <slot />
   </a>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
-import { RouteParams, useLink, useRouter } from 'vue-router'
+import { computed, defineComponent, PropType } from "vue";
+import { RouteParams, useLink, useRouter } from "vue-router";
 
 export default defineComponent({
-  name: 'AppLink',
+  name: "AppLink",
   props: {
     name: { type: String as PropType<AppRouteNames>, required: true },
-    params: { type: Object as PropType<RouteParams | undefined>, default: undefined },
-    activeClass: { type: String, default: '' },
+    params: {
+      type: Object as PropType<RouteParams | undefined>,
+      default: undefined,
+    },
+    activeClass: { type: String, default: "" },
   },
-  setup (props) {
-    const { href, isExactActive } = useLink({ to: props })
-    const router = useRouter()
+  setup(props) {
+    const { href, isExactActive } = useLink({ to: props });
+    const router = useRouter();
 
     const go = () => {
-      if (props.params !== undefined) router.push({ name: props.name, params: props.params })
-      else router.push({ name: props.name })
-    }
+      if (props.params !== undefined)
+        router.push({ name: props.name, params: props.params });
+      else router.push({ name: props.name });
+    };
 
-    const linkActiveClass = computed(() => ({ [props.activeClass]: isExactActive.value }))
+    const linkActiveClass = computed(() => ({
+      [props.activeClass]: isExactActive.value,
+    }));
 
     return {
       href,
       go,
       isExactActive,
       linkActiveClass,
-    }
+    };
   },
-})
+});
 </script>

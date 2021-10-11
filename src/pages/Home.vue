@@ -14,11 +14,11 @@
         <div class="col-md-9">
           <Suspense>
             <template #default>
-              <ArticlesList
+              <!-- <ArticlesList
                 use-global-feed
                 use-my-feed
                 use-tag-feed
-              />
+              /> -->
             </template>
             <template #fallback>
               Articles are downloading...
