@@ -76,7 +76,7 @@ export default defineComponent({
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<PostLoginForm>({
       email: '',
-      password: '',
+      password: ''
     })
 
     const errors = ref<PostLoginErrors>({})

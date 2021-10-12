@@ -15,9 +15,10 @@ export const mapAuthorizationResponse = <T>(result: Either<NetworkError, T>): Ei
 export const mapValidationResponse = <E, T>(result: Either<NetworkError, T>): Either<ValidationError<E>, T> => {
   if (result.isOk()) {
     return success(result.value)
-  } else if (result.value.response.status === 422) {
-    return fail(new ValidationError<E>(result.value.response))
   } else {
-    throw result.value
+    return fail(new ValidationError<E>(result.value.response))
   }
+  // else {
+  //   throw result.value
+  // }
 }

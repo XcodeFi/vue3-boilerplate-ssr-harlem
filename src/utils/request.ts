@@ -51,6 +51,7 @@ export default class FetchRequest {
     }
 
     console.error('server: error');
+    // @ts-ignore
     return '';
     // throw new NetworkError(response)
   }
