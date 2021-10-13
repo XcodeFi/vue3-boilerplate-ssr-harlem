@@ -23,8 +23,6 @@ export function useArticles() {
     articles.value = []
     let responsePromise: null | Promise<ArticlesResponse> = null
 
-    debugger;
-
     if (articlesType.value === 'my-feed') {
       responsePromise = getFeeds(page.value)
     }

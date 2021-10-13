@@ -10,7 +10,7 @@ export interface PostLoginForm {
   password: string
 }
 
-export type PostLoginErrors = Partial<Record<keyof PostLoginForm | 'message', string[]>>
+export type PostLoginErrors = Partial<Record<keyof PostLoginForm, string[]>>
 
 export async function postLogin(form: PostLoginForm): Promise<Either<ValidationError<PostLoginErrors>, User>> {
   const result1 = await request.checkablePost<UserResponse>('/login', { ...form })

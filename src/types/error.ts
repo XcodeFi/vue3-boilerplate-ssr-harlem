@@ -25,6 +25,6 @@ export class ValidationError<T extends Partial<Record<string, string[]>>> extend
   }
 
   getErrors(): Promise<T> {
-    return this.response.json().then(json => json.errors as T)
+    return this.response.json().then(json => json.data as T)
   }
 }

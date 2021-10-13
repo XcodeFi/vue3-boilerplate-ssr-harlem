@@ -17,6 +17,6 @@ export async function postRegister(form: PostRegisterForm): Promise<Either<Valid
   const result1 = await request.checkablePost<UserResponse>('/signup', { email: form.email, password: form.password })
   const result2 = mapValidationResponse<PostRegisterErrors, UserResponse>(result1)
 
-  if (result2.isOk()) return success(result2.value.user)
+  if (result2.isOk()) return success(result2.value.data)
   else return fail(result2.value)
 }
