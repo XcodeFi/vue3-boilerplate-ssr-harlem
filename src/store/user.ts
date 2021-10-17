@@ -16,7 +16,7 @@ const STATE: State = {
 const { getter, mutation } = createStore('user', STATE, { allowOverwrite: true })
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const user = getter('user', (state: any) => state.user)
+export const user = getter('user', (state: State) => state.user)
 
 export const isAuthorized = getter('isAuthorized', () => checkAuthorization(user))
 
@@ -30,8 +30,8 @@ export const updateUser = mutation<User | null>('updateUser', (state: any, userD
     request.deleteAuthorizationHeader()
     state.user = null
   } else {
-    cookie.set('user', userData.user)
-    request.setAuthorizationHeader(userData.token)
+    cookie.set('user', userData)
+    request.setAuthorizationHeader(userData.user.token)
     state.user = userData.user;
   }
 })

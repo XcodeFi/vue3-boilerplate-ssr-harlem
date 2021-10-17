@@ -14,6 +14,14 @@
             </fieldset>
             <fieldset class="form-group">
               <input
+                v-model="form.blogUrl"
+                type="text"
+                class="form-control form-control-lg"
+                placeholder="Article Url"
+              >
+            </fieldset>
+            <fieldset class="form-group">
+              <input
                 v-model="form.description"
                 type="text"
                 class="form-control form-control-lg"
@@ -66,13 +74,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref } from 'vue'
+import { computed, defineComponent, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getArticle } from '../services/article/getArticle'
 import { postArticle, putArticle } from '../services/article/postArticle'
+import toSlug from '../utils/common'
 
 interface FormState {
   title: string;
+  blogUrl: string;
   description: string;
   body: string;
   tagList: string[];
@@ -87,6 +97,7 @@ export default defineComponent({
 
     const form = reactive<FormState>({
       title: '',
+      blogUrl: '',
       description: '',
       body: '',
       tagList: [],
@@ -113,6 +124,10 @@ export default defineComponent({
 
     onMounted(() => {
       if (slug.value) fetchArticle(slug.value)
+    })
+
+    watch(computed(() => form.title),(val)=>{
+      form.blogUrl = toSlug(val)
     })
 
     const onSubmit = async () => {

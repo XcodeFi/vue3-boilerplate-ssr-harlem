@@ -48,7 +48,7 @@ interface NavLink {
 export default defineComponent({
   name: 'AppNavigation',
   setup () {
-    const username = computed(() => user.value?.username)
+    const username = computed(() => user.value?.email)
     const displayStatus = computed(() => username.value ? 'authorized' : 'anonym')
 
     const allNavLinks = computed<NavLink[]>(() => [

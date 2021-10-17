@@ -74,6 +74,7 @@
 </template>
 
 <script lang="ts">
+import { postLogout } from 'src/services/auth/postLogout'
 import { computed, defineComponent, onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -85,6 +86,8 @@ export default defineComponent({
   name: 'SettingsPage',
   setup () {
     const router = useRouter()
+
+    const userStore = computed(() => user.value);
 
     const form = reactive<PutProfileForm>({})
 
@@ -100,8 +103,14 @@ export default defineComponent({
     }
 
     const onLogout = async () => {
-      updateUser(null)
-      await router.push({ name: 'global-feed' })
+      const result = await postLogout(userStore.value)
+      if (result.isOk()) {
+        updateUser(null)
+        await router.push({ name: 'global-feed' })
+      } else {
+        const errors = await result.value;
+        console.log(errors);
+      }
     }
 
     onMounted(async () => {

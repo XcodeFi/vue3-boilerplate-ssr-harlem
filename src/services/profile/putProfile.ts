@@ -8,6 +8,6 @@ export interface PutProfileForm {
   password?: string
 }
 
-export function putProfile (form: PutProfileForm): Promise<User> {
-  return request.put<UserResponse>('/user', form).then(res => res.user)
+export function putProfile(form: PutProfileForm): Promise<User> {
+  return request.put<UserResponse>('/user', form).then(res => res.data)
 }

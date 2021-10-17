@@ -41,8 +41,8 @@ export function useArticles() {
 
     if (responsePromise !== null) {
       const response = await responsePromise
-      articles.value = response.articles
-      articlesCount.value = response.articlesCount
+      articles.value = response.data.articles
+      articlesCount.value = response.data.articlesCount
     } else {
       throw new Error(`Articles type "${articlesType.value}" not supported`)
     }
