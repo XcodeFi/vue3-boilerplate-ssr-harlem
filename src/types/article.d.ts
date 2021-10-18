@@ -6,7 +6,7 @@ declare interface Article {
   updatedAt: string
   tagList: string[]
   description: string
-  author: Profile
+  author: Profile1
   favorited: boolean
   favoritesCount: number
 }

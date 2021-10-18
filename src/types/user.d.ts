@@ -5,6 +5,11 @@ declare interface Profile {
   following: boolean
 }
 
+declare interface Profile1 {
+  email: string
+  profilePicUrl: string
+}
+
 declare interface User {
   id: number
   email: string
