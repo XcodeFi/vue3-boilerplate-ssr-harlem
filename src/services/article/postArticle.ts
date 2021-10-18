@@ -18,10 +18,10 @@ export function postArticle(form: PostArticleForm): Promise<Article> {
     score: 1,
     tags: form.tagList
   })
-    .then(res => res.article)
+    .then(res => res.data)
 }
 
 export function putArticle(slug: string, form: PostArticleForm): Promise<Article> {
   return request.put<ArticleResponse>(`/blogs/${slug}`, form)
-    .then(res => res.article)
+    .then(res => res.data)
 }

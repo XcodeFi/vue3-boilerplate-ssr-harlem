@@ -31,8 +31,7 @@ declare interface ProfileResponse {
   profile: Profile
 }
 
-declare interface ArticleResponse {
-  article: Article
+declare interface ArticleResponse extends ApiResponse<Article> {
 }
 
 declare interface ArticlesResponse extends ApiResponse<{
@@ -41,9 +40,7 @@ declare interface ArticlesResponse extends ApiResponse<{
 }> {
 }
 
-declare interface CommentResponse {
-  comment: ArticleComment
-}
+declare interface CommentResponse extends ApiResponse<ArticleComment>{}
 
 declare interface CommentsResponse {
   comments: ArticleComment[]

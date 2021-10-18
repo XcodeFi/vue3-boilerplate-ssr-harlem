@@ -1,7 +1,7 @@
 declare interface Article {
   title: string
-  slug: string
-  body: string
+  blogUrl: string
+  text: string
   createdAt: string
   updatedAt: string
   tagList: string[]

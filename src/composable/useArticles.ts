@@ -19,6 +19,8 @@ export function useArticles() {
   const articlesCount = ref(0)
   const page = ref(1)
 
+  debugger
+
   async function fetchArticles(): Promise<void> {
     articles.value = []
     let responsePromise: null | Promise<ArticlesResponse> = null
@@ -39,6 +41,7 @@ export function useArticles() {
       responsePromise = getArticles(page.value)
     }
 
+    debugger
     if (responsePromise !== null) {
       const response = await responsePromise
       articles.value = response.data.articles

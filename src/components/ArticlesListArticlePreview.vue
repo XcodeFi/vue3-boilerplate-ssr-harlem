@@ -31,7 +31,7 @@
 
     <AppLink
       name="article"
-      :params="{slug: article.slug}"
+      :params="{slug: article.blogUrl}"
       class="preview-link"
     >
       <h1>{{ article.title }}</h1>
@@ -63,7 +63,7 @@ export default defineComponent({
     },
   },
   emits: {
-    update: (article: Article) => !!article.slug,
+    update: (article: Article) => !!article.blogUrl,
   },
   setup (props, { emit }) {
     const {
@@ -71,7 +71,7 @@ export default defineComponent({
       favoriteArticle,
     } = useFavoriteArticle({
       isFavorited: computed(() => props.article.favorited),
-      articleSlug: computed(() => props.article.slug),
+      articleSlug: computed(() => props.article.blogUrl),
       onUpdate: (newArticle: Article): void => emit('update', newArticle),
     })
 

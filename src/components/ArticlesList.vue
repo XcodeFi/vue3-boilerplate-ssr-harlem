@@ -12,7 +12,7 @@
     Articles are downloading...
   </div>
   <div
-    v-else-if="articles.length === 0"
+    v-else-if="articles?.length === 0"
     class="article-preview"
   >
     No articles are here... yet.
@@ -20,16 +20,16 @@
   <template v-else>
     <ArticlesListArticlePreview
       v-for="(article, index) in articles"
-      :key="article.slug"
+      :key="article.blogUrl"
       :article="article"
       @update="newArticle => updateArticle(index, newArticle)"
     />
 
-    <AppPagination
+    <!-- <AppPagination
       :count="articlesCount"
       :page="page"
       @page-change="changePage"
-    />
+    /> -->
   </template>
 </template>
 
@@ -51,6 +51,7 @@ export default defineComponent({
   },
 
   async setup () {
+    debugger
     const {
       fetchArticles,
       articlesDownloading,

@@ -137,7 +137,7 @@ export default defineComponent({
       } else {
         article = await postArticle(form)
       }
-      return router.push({ name: 'article', params: { slug: article.slug } })
+      return router.push({ name: 'article', params: { slug: article.blogUrl } })
     }
 
     return {
