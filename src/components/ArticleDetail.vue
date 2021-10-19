@@ -3,10 +3,10 @@
     <div class="container">
       <h1>{{ article.title }}</h1>
 
-      <ArticleDetailMeta
+      <!-- <ArticleDetailMeta
         :article="article"
         @update="updateArticle"
-      />
+      /> -->
     </div>
   </div>
 
@@ -33,12 +33,12 @@
 
     <hr>
 
-    <div class="article-actions">
+    <!-- <div class="article-actions">
       <ArticleDetailMeta
         :article="article"
         @update="updateArticle"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 

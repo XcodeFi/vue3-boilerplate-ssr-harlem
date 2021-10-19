@@ -5,7 +5,7 @@ import { request } from '../index'
 import { mapAuthorizationResponse } from '../../utils/map-checkable-response'
 import { Either, fail, success } from '../../utils/either'
 
-export async function postFollowProfile (username: string): Promise<Either<AuthorizationError, Profile>> {
+export async function postFollowProfile (username: string): Promise<Either<AuthorizationError, Profile1>> {
   const result1 = await request.checkablePost<ProfileResponse>(`/profiles/${username}/follow`)
   const result2 = mapAuthorizationResponse<ProfileResponse>(result1)
 
@@ -13,7 +13,7 @@ export async function postFollowProfile (username: string): Promise<Either<Autho
   return fail(result2.value)
 }
 
-export async function deleteFollowProfile (username: string): Promise<Either<AuthorizationError, Profile>> {
+export async function deleteFollowProfile (username: string): Promise<Either<AuthorizationError, Profile1>> {
   const result1 = await request.checkableDelete<ProfileResponse>(`/profiles/${username}/follow`)
   const result2 = mapAuthorizationResponse<ProfileResponse>(result1)
 

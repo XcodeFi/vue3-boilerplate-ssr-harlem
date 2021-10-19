@@ -28,7 +28,7 @@ declare interface TagsResponse extends ApiResponse<Tag[]> {
 }
 
 declare interface ProfileResponse {
-  profile: Profile
+  profile: Profile1
 }
 
 declare interface ArticleResponse extends ApiResponse<Article> {

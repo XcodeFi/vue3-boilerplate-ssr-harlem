@@ -2,18 +2,18 @@
   <div class="article-meta">
     <AppLink
       name="profile"
-      :params="{username: article.author.username}"
+      :params="{username: article.author.email}"
     >
-      <img :src="article.author.image">
+      <img :src="article.author.profilePicUrl">
     </AppLink>
 
     <div class="info">
       <AppLink
         name="profile"
-        :params="{username: article.author.username}"
+        :params="{username: article.author.email}"
         class="author"
       >
-        {{ article.author.username }}
+        {{ article.author.email }}
       </AppLink>
 
       <span class="date">{{ (new Date(article.createdAt)).toLocaleDateString() }}</span>
@@ -27,7 +27,7 @@
       @click="toggleFollow"
     >
       <i class="ion-plus-round space" />
-      {{ article.author.following ? "Unfollow" : "Follow" }} {{ article.author.username }}
+      {{ article.author.following ? "Unfollow" : "Follow" }} {{ article.author.email }}
     </button>
 
     <button
@@ -47,7 +47,7 @@
       aria-label="Edit article"
       class="btn btn-outline-secondary btn-sm space"
       name="edit-article"
-      :params="{slug: article.slug}"
+      :params="{slug: article.blogUrl}"
     >
       <i class="ion-edit space" /> Edit Article
     </AppLink>
@@ -80,30 +80,30 @@ export default defineComponent({
     article: { type: Object as PropType<Article>, required: true },
   },
   emits: {
-    update: (article: Article) => !!article.slug,
+    update: (article: Article) => !!article.blogUrl,
   },
   setup (props, { emit }) {
     const router = useRouter()
 
     const { article } = toRefs(props)
-    const displayEditButton = computed(() => checkAuthorization(user) && user.value.username === article.value.author.username)
-    const displayFollowButton = computed(() => checkAuthorization(user) && user.value.username !== article.value.author.username)
+    const displayEditButton = computed(() => checkAuthorization(user) && user.value.username === article.value.author.email)
+    const displayFollowButton = computed(() => checkAuthorization(user) && user.value.username !== article.value.author.email)
 
     const { favoriteProcessGoing, favoriteArticle } = useFavoriteArticle({
       isFavorited: computed(() => article.value.favorited),
-      articleSlug: computed(() => article.value.slug),
+      articleSlug: computed(() => article.value.blogUrl),
       onUpdate: newArticle => emit('update', newArticle),
     })
 
     const onDelete = async () => {
-      await deleteArticle(article.value.slug)
+      await deleteArticle(article.value.blogUrl)
       await router.push({ name: 'global-feed' })
     }
 
     const { followProcessGoing, toggleFollow } = useFollow({
       following: computed(() => article.value.author.following),
-      username: computed(() => article.value.author.username),
-      onUpdate: (author: Profile) => {
+      username: computed(() => article.value.author.email),
+      onUpdate: (author: Profile1) => {
         const newArticle = { ...article.value, author }
         emit('update', newArticle)
       },
