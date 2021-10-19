@@ -13,5 +13,5 @@ export default function toSlug(str: string): string {
     .replace(/\s+/g, '-') // collapse whitespace and replace by -
     .replace(/-+/g, '-'); // collapse dashes
 
-  return str;
+  return str + '-' + (Math.random() * Math.pow(36, 6) | 0).toString(36);
 };
