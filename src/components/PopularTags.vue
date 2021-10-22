@@ -6,7 +6,7 @@
       v-for="tag in tags"
       :key="tag._id"
       name="tag"
-      :params="{ tag }"
+      :params="{ tag: tag.name }"
       class="tag-pill tag-default"
     >
       {{ tag.name }}
@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts">
-
 import { defineComponent } from "vue";
 import { useTags } from "../composable/useTags";
 

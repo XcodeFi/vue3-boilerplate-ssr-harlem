@@ -10,7 +10,7 @@
                 type="text"
                 class="form-control form-control-lg"
                 placeholder="Article Title"
-              >
+              />
             </fieldset>
             <fieldset class="form-group">
               <input
@@ -18,7 +18,7 @@
                 type="text"
                 class="form-control form-control-lg"
                 placeholder="Article Url"
-              >
+              />
             </fieldset>
             <fieldset class="form-group">
               <input
@@ -26,11 +26,11 @@
                 type="text"
                 class="form-control form-control-lg"
                 placeholder="What's this article about?"
-              >
+              />
             </fieldset>
             <fieldset class="form-group">
               <textarea
-                v-model="form.body"
+                v-model="form.text"
                 :rows="8"
                 class="form-control"
                 placeholder="Write your article (in markdown)"
@@ -44,17 +44,14 @@
                 placeholder="Enter tags"
                 @change="addTag"
                 @keypress.enter.prevent="addTag"
-              >
+              />
               <div class="tag-list">
                 <span
-                  v-for="tag in form.tagList"
+                  v-for="tag in form.tags"
                   :key="tag"
                   class="tag-default tag-pill"
                 >
-                  <i
-                    class="ion-close-round"
-                    @click="removeTag(tag)"
-                  />
+                  <i class="ion-close-round" @click="removeTag(tag)" />
                   {{ tag }}
                 </span>
               </div>
@@ -62,7 +59,7 @@
             <button
               class="btn btn-lg pull-xs-right btn-primary"
               type="submit"
-              :disabled="!(form.title && form.description && form.body)"
+              :disabled="!(form.title && form.description && form.text)"
             >
               Publish Article
             </button>
@@ -74,71 +71,84 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { getArticle } from '../services/article/getArticle'
-import { postArticle, putArticle } from '../services/article/postArticle'
-import toSlug from '../utils/common'
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  reactive,
+  ref,
+  watch,
+} from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { getArticle } from "../services/article/getArticle";
+import { postArticle, putArticle } from "../services/article/postArticle";
+import toSlug from "../utils/common";
 
 interface FormState {
   title: string;
   blogUrl: string;
   description: string;
-  body: string;
-  tagList: string[];
+  text: string;
+  tags: string[];
 }
 
 export default defineComponent({
-  name: 'EditArticlePage',
-  setup () {
-    const route = useRoute()
-    const router = useRouter()
-    const slug = computed<string>(() => route.params.slug as string)
+  name: "EditArticlePage",
+  setup() {
+    const route = useRoute();
+    const router = useRouter();
+    const slug = computed<string>(() => route.params.slug as string);
 
     const form = reactive<FormState>({
-      title: '',
-      blogUrl: '',
-      description: '',
-      body: '',
-      tagList: [],
-    })
+      title: "",
+      blogUrl: "",
+      description: "",
+      text: "",
+      tags: [],
+    });
 
-    const newTag = ref<string>('')
+    const newTag = ref<string>("");
     const addTag = () => {
-      form.tagList.push(newTag.value.trim())
-      newTag.value = ''
-    }
+      form.tags.push(newTag.value.trim());
+      newTag.value = "";
+    };
     const removeTag = (tag: string) => {
-      form.tagList = form.tagList.filter(t => t !== tag)
-    }
+      form.tags = form.tags.filter((t) => t !== tag);
+    };
 
-    async function fetchArticle (slug: string) {
-      const article = await getArticle(slug)
+    async function fetchArticle(slug: string) {
+      const article = await getArticle(slug);
 
       // FIXME: I always feel a little wordy here
-      form.title = article.title
-      form.description = article.description
-      form.body = article.body
-      form.tagList = article.tagList
+      form.title = article.title;
+      form.description = article.description;
+      form.text = article.text;
+      form.tags = article.tags;
     }
 
     onMounted(() => {
-      if (slug.value) fetchArticle(slug.value)
-    })
+      if (slug.value) fetchArticle(slug.value);
+    });
 
-    watch(computed(() => form.title),(val)=>{
-      form.blogUrl = toSlug(val)
-    })
+    watch(
+      computed(() => form.title),
+      (val) => {
+        form.blogUrl = toSlug(val);
+      }
+    );
 
     const onSubmit = async () => {
-      let article: Article
+      let article: Article;
       if (slug.value) {
-        article = await putArticle(slug.value, form)
+        article = await putArticle(slug.value, form);
       } else {
-        article = await postArticle(form)
+        article = await postArticle(form);
       }
-      return router.push({ name: 'article', params: { slug: article.blogUrl } })
-    }
+      return router.push({
+        name: "article",
+        params: { slug: article.blogUrl },
+      });
+    };
 
     return {
       form,
@@ -146,7 +156,7 @@ export default defineComponent({
       newTag,
       addTag,
       removeTag,
-    }
+    };
   },
-})
+});
 </script>

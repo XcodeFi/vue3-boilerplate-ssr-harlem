@@ -4,19 +4,19 @@ interface PostArticleForm {
   title: string
   description: string,
   blogUrl: string,
-  body: string
-  tagList: string[]
+  text: string
+  tags: string[]
 }
 
 export function postArticle(form: PostArticleForm): Promise<Article> {
   return requestAuthorize.post<ArticleResponse>('/blogs', {
     title: form.title,
     description: form.description,
-    text: form.body,
+    text: form.text,
     blogUrl: form.blogUrl,
     imgUrl: "string",
     score: 1,
-    tags: form.tagList
+    tags: form.tags
   })
     .then(res => res.data)
 }
