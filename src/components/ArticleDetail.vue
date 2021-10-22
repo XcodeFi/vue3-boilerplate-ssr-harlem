@@ -16,7 +16,7 @@
       <!-- TODO: abstract tag list component-->
       <ul class="tag-list">
         <li
-          v-for="tag in article.tagList"
+          v-for="tag in article.tags"
           :key="tag"
           class="tag-default tag-pill tag-outline"
         >
