@@ -1,5 +1,5 @@
-import { request } from '../index'
+import requestAuthorize, { request } from '../index'
 
-export function deleteArticle (slug: string): Promise<void> {
-  return request.delete(`/blogs/${slug}`)
+export function deleteArticle(slug: string): Promise<void> {
+  return requestAuthorize.delete(`/blogs/${slug}`)
 }

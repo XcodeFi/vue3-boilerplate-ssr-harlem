@@ -133,7 +133,7 @@ export default defineComponent({
     watch(
       computed(() => form.title),
       (val) => {
-        form.blogUrl = toSlug(val);
+        form.blogUrl = slug.value ? slug.value: toSlug(val);
       }
     );
 

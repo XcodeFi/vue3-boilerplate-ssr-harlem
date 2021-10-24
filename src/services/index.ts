@@ -25,4 +25,14 @@ export default class requestAuthorize {
     user.value && request.setAuthorizationHeader(user.value.token);
     return request.checkablePost(url, data);
   }
+
+  static put<T = unknown>(url: string, data?: unknown, options?: Partial<FetchRequestOptions>): Promise<T> {
+    user.value && request.setAuthorizationHeader(user.value.token);
+    return request.put(url, data);
+  }
+
+  static delete<T = unknown>(url: string, options?: Partial<FetchRequestOptions>): Promise<T> {
+    user.value && request.setAuthorizationHeader(user.value.token);
+    return request.delete(url);
+  }
 }
