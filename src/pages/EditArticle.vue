@@ -48,10 +48,10 @@
               <div class="tag-list">
                 <span
                   v-for="tag in form.tags"
-                  :key="tag"
+                  :key="tag._id"
                   class="tag-default tag-pill"
                 >
-                  <i class="ion-close-round" @click="removeTag(tag)" />
+                  <i class="ion-close-round" @click="removeTag(tag.name)" />
                   {{ tag }}
                 </span>
               </div>
@@ -89,7 +89,7 @@ interface FormState {
   blogUrl: string;
   description: string;
   text: string;
-  tags: string[];
+  tags: Tag[];
 }
 
 export default defineComponent({
@@ -133,7 +133,7 @@ export default defineComponent({
     watch(
       computed(() => form.title),
       (val) => {
-        form.blogUrl = slug.value ? slug.value: toSlug(val);
+        form.blogUrl = slug.value ? slug.value : toSlug(val);
       }
     );
 
