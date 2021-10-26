@@ -48,10 +48,10 @@
               <div class="tag-list">
                 <span
                   v-for="tag in form.tags"
-                  :key="tag._id"
+                  :key="tag"
                   class="tag-default tag-pill"
                 >
-                  <i class="ion-close-round" @click="removeTag(tag.name)" />
+                  <i class="ion-close-round" @click="removeTag(tag)" />
                   {{ tag }}
                 </span>
               </div>
@@ -89,7 +89,7 @@ interface FormState {
   blogUrl: string;
   description: string;
   text: string;
-  tags: Tag[];
+  tags: string[];
 }
 
 export default defineComponent({
@@ -108,10 +108,12 @@ export default defineComponent({
     });
 
     const newTag = ref<string>("");
+
     const addTag = () => {
-      form.tags.push(newTag.value.trim());
+      form.tags.push(newTag.value);
       newTag.value = "";
     };
+
     const removeTag = (tag: string) => {
       form.tags = form.tags.filter((t) => t !== tag);
     };
@@ -123,7 +125,7 @@ export default defineComponent({
       form.title = article.title;
       form.description = article.description;
       form.text = article.text;
-      form.tags = article.tags;
+      form.tags = article.tags.map(t=>t.name);
     }
 
     onMounted(() => {

@@ -4,7 +4,7 @@ declare interface Article {
   text: string
   createdAt: string
   updatedAt: string
-  tags: string[]
+  tags: Tag[]
   description: string
   author: Profile1
   favorited: boolean

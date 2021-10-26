@@ -17,10 +17,10 @@
       <ul class="tag-list">
         <li
           v-for="tag in article.tags"
-          :key="tag"
+          :key="tag._id"
           class="tag-default tag-pill tag-outline"
         >
-          {{ tag }}
+          {{ tag.name }}
         </li>
       </ul>
     </div>
