@@ -8,7 +8,7 @@ interface UseProfileProps {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export function useProfile ({ username }: UseProfileProps) {
-  const profile = ref<Profile | null>(null)
+  const profile = ref<Profile1 | null>(null)
 
   async function fetchProfile (): Promise<void> {
     updateProfile(null)
@@ -17,7 +17,7 @@ export function useProfile ({ username }: UseProfileProps) {
     updateProfile(profileData)
   }
 
-  function updateProfile (profileData: Profile | null): void {
+  function updateProfile (profileData: Profile1 | null): void {
     profile.value = profileData
   }
 

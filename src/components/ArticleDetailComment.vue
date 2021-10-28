@@ -9,11 +9,11 @@
     <div class="card-footer">
       <AppLink
         name="profile"
-        :params="{username: comment.author.username}"
+        :params="{username: comment.author.email}"
         class="comment-author"
       >
         <img
-          :src="comment.author.image"
+          :src="comment.author.profilePicUrl"
           class="comment-author-img"
         >
       </AppLink>
@@ -22,10 +22,10 @@
 
       <AppLink
         name="profile"
-        :params="{username: comment.author.username}"
+        :params="{username: comment.author.email}"
         class="comment-author"
       >
-        {{ comment.author.username }}
+        {{ comment.author.email }}
       </AppLink>
 
       <span class="date-posted">{{ (new Date(comment.createdAt)).toLocaleDateString() }}</span>
@@ -58,7 +58,7 @@ export default defineComponent({
   setup (props) {
     return {
       showRemove: computed(() => (
-        props.username !== undefined && props.username === props.comment.author.username
+        props.username !== undefined && props.username === props.comment.author.email
       )),
     }
   },

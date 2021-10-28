@@ -22,7 +22,7 @@
     </div>
     <div class="card-footer">
       <img
-        :src="profile.image"
+        :src="profile.profilePicUrl"
         class="comment-author-img"
       >
       <button
@@ -55,7 +55,7 @@ export default defineComponent({
     'add-comment': (comment: ArticleComment) => !!comment.id,
   },
   setup (props, { emit }) {
-    const username = computed(() => checkAuthorization(user) ? user.value.username : '')
+    const username = computed(() => checkAuthorization(user) ? user.value.email : '')
     const { profile } = useProfile({ username })
 
     const comment = ref('')

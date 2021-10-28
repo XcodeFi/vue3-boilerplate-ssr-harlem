@@ -27,8 +27,7 @@ declare interface UserResponse extends ApiResponse<User> {
 declare interface TagsResponse extends ApiResponse<Tag[]> {
 }
 
-declare interface ProfileResponse {
-  profile: Profile1
+declare interface ProfileResponse extends ApiResponse<Profile1>{
 }
 
 declare interface ArticleResponse extends ApiResponse<Article> {
@@ -42,6 +41,5 @@ declare interface ArticlesResponse extends ApiResponse<{
 
 declare interface CommentResponse extends ApiResponse<ArticleComment>{}
 
-declare interface CommentsResponse {
-  comments: ArticleComment[]
+declare interface CommentsResponse extends ApiResponse<ArticleComment[]>{
 }
