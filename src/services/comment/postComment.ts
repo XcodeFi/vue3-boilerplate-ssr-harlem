@@ -1,6 +1,6 @@
 import requestAuthorize, { request } from '../index'
 
-export function deleteComment (slug: string, commentId: number): Promise<Record<string, unknown>> {
+export function deleteComment (slug: string, commentId: string): Promise<Record<string, unknown>> {
   return requestAuthorize.delete(`/blogs/${slug}/comments/${commentId}`)
 }
 

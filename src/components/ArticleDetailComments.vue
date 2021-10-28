@@ -6,10 +6,10 @@
 
   <ArticleDetailComment
     v-for="comment in comments"
-    :key="comment.id"
+    :key="comment._id"
     :comment="comment"
     :username="username"
-    @remove-comment="() => removeComment(comment.id)"
+    @remove-comment="() => removeComment(comment._id)"
   />
 </template>
 
@@ -43,9 +43,9 @@ export default defineComponent({
       comments.value.unshift(comment)
     }
 
-    const removeComment = async (commentId: number) => {
+    const removeComment = async (commentId: string) => {
       await deleteComment(slug, commentId)
-      comments.value = comments.value.filter(c => c.id !== commentId)
+      comments.value = comments.value.filter(c => c._id !== commentId)
     }
 
     comments.value = await getCommentsByArticle(slug)
