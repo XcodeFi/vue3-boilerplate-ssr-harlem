@@ -35,4 +35,9 @@ export default class requestAuthorize {
     user.value && request.setAuthorizationHeader(user.value.token);
     return request.delete(url);
   }
+
+  static checkableDelete<T = unknown>(url: string, options?: Partial<FetchRequestOptions>): Promise<Either<NetworkError, T>> {
+    user.value && request.setAuthorizationHeader(user.value.token);
+    return request.checkableDelete(url);
+  }
 }

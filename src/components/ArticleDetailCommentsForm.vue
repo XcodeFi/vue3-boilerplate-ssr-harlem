@@ -52,7 +52,7 @@ export default defineComponent({
     articleSlug: { type: String, required: true },
   },
   emits: {
-    'add-comment': (comment: ArticleComment) => !!comment.id,
+    'add-comment': (comment: ArticleComment) => !!comment._id,
   },
   setup (props, { emit }) {
     const username = computed(() => checkAuthorization(user) ? user.value.email : '')
