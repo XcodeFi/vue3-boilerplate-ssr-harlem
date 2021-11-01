@@ -93,6 +93,20 @@ export default defineComponent({
         checkAuthorization(user) &&
         user.value.email === article.value.author.email
     );
+
+    const favorited = computed(
+      () =>
+        checkAuthorization(user) &&
+        article.value.favoritedUsers.find(
+          (t) => t.email === user.value?.email
+        ) != null
+    );
+
+    const favoritesCount = computed(() => article.value.favoritedUsers.length);
+
+    article.value.favorited = favorited.value;
+    article.value.favoritesCount = favoritesCount.value;
+
     const displayFollowButton = computed(
       () =>
         checkAuthorization(user) &&

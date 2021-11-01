@@ -9,4 +9,5 @@ declare interface Article {
   author: Profile1
   favorited: boolean
   favoritesCount: number
+  favoritedUsers: User[]
 }
