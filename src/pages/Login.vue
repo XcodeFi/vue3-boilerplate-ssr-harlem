@@ -87,7 +87,8 @@ export default defineComponent({
       const result = await postLogin(form)
       if (result.isOk()) {
         updateUser(result.value)
-        await router.push({ name: 'global-feed' })
+        // await router.push({ name: 'global-feed' })
+        await router.go(-1)
       } else {
         errors.value = await result.value.getErrors()
       }
