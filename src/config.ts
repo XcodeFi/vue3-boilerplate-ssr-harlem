@@ -1,3 +1,3 @@
 export const CONFIG = {
-  API_HOST: 'http://localhost:4000',
+  API_HOST: 'http://localhost:8100/graphql',
 }
