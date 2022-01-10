@@ -19,3 +19,9 @@ declare interface User {
   image: string | undefined
   token: string
 }
+
+declare interface Login{
+  token: string;
+  success: boolean;
+  user: User
+}

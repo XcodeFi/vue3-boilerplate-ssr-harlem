@@ -21,13 +21,23 @@ abstract class ApiResponse<T> {
   public data: T;
 }
 
+abstract class GraphqlResponse<T> {
+  public error: {
+    message: string
+  };
+  public data: T;
+}
+
 declare interface UserResponse extends ApiResponse<User> {
+}
+
+declare interface UserResponseGraphql extends GraphqlResponse<Login> {
 }
 
 declare interface TagsResponse extends ApiResponse<Tag[]> {
 }
 
-declare interface ProfileResponse extends ApiResponse<Profile1>{
+declare interface ProfileResponse extends ApiResponse<Profile1> {
 }
 
 declare interface ArticleResponse extends ApiResponse<Article> {
@@ -39,7 +49,7 @@ declare interface ArticlesResponse extends ApiResponse<{
 }> {
 }
 
-declare interface CommentResponse extends ApiResponse<ArticleComment>{}
+declare interface CommentResponse extends ApiResponse<ArticleComment> { }
 
-declare interface CommentsResponse extends ApiResponse<ArticleComment[]>{
+declare interface CommentsResponse extends ApiResponse<ArticleComment[]> {
 }

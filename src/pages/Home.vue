@@ -14,11 +14,11 @@
         <div class="col-md-9">
           <Suspense>
             <template #default>
-              <ArticlesList
+              <!-- <ArticlesList
                 use-global-feed
                 use-my-feed
                 use-tag-feed
-              />
+              /> -->
             </template>
             <template #fallback>
               Articles are downloading...
@@ -29,9 +29,9 @@
         <div class="col-md-3">
           <div class="sidebar">
             <Suspense>
-              <template #default>
+              <!-- <template #default>
                 <PopularTags />
-              </template>
+              </template> -->
               <template #fallback>
                 Popular tags are downloading...
               </template>

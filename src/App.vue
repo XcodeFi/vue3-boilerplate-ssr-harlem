@@ -18,9 +18,9 @@ export default defineComponent({
     AppFooter,
   },
   setup(){
-    useClient({
-      url: CONFIG.API_HOST,
-    });
+    // useClient({
+    //   url: CONFIG.API_HOST,
+    // });
   }
 })
 </script>
