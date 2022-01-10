@@ -13,7 +13,7 @@ export interface PostLoginForm {
 
 export type PostLoginErrors = Partial<Record<keyof PostLoginForm, string[]>>
 
-export async function postLogin(form: PostLoginForm): Promise<Either<ValidationError<PostLoginErrors>, User>> {
+export async function postLogin(form: PostLoginForm): Promise<Either<ValidationError<PostLoginErrors>, Login>> {
 
   const pra = {
     query:`mutation login {
@@ -39,6 +39,6 @@ export async function postLogin(form: PostLoginForm): Promise<Either<ValidationE
   // const result1 = await request.checkablePost<UserResponse>('/login', { ...form })
   const result2 = mapValidationResponse<PostLoginErrors, UserResponseGraphql>(result3)
 
-  if (result2.isOk()) return success(result2.value.data.user);
+  if (result2.isOk()) return success(result2.value.data);
   else return fail(result2.value)
 }
