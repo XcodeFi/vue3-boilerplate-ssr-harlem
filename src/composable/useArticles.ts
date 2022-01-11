@@ -10,6 +10,7 @@ import {
   getFeeds,
   getArticlesByTag,
 } from '../services/article/getArticles'
+import { AllArticle } from 'src/types/article.type'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export function useArticles() {
@@ -21,28 +22,27 @@ export function useArticles() {
 
   async function fetchArticles(): Promise<void> {
     articles.value = []
-    let responsePromise: null | Promise<ArticlesResponse> = null
+    let responsePromise: null | Promise<AllArticle> = null
 
-    if (articlesType.value === 'my-feed') {
-      responsePromise = getFeeds(page.value)
-    }
-    if (articlesType.value === 'tag-feed' && tag.value !== undefined) {
-      responsePromise = getArticlesByTag(tag.value, page.value)
-    }
-    if (articlesType.value === 'user-feed' && username.value !== undefined) {
-      responsePromise = getProfileArticles(username.value, page.value)
-    }
-    if (articlesType.value === 'user-favorites-feed' && username.value !== undefined) {
-      responsePromise = getFavoritedArticles(username.value, page.value)
-    }
+    // if (articlesType.value === 'my-feed') {
+    //   responsePromise = getFeeds(page.value)
+    // }
+    // if (articlesType.value === 'tag-feed' && tag.value !== undefined) {
+    //   responsePromise = getArticlesByTag(tag.value, page.value)
+    // }
+    // if (articlesType.value === 'user-feed' && username.value !== undefined) {
+    //   responsePromise = getProfileArticles(username.value, page.value)
+    // }
+    // if (articlesType.value === 'user-favorites-feed' && username.value !== undefined) {
+    //   responsePromise = getFavoritedArticles(username.value, page.value)
+    // }
     if (articlesType.value === 'global-feed') {
       responsePromise = getArticles(page.value)
     }
 
     if (responsePromise !== null) {
-      const response = await responsePromise
-      articles.value = response.data.articles
-      articlesCount.value = response.data.articlesCount
+      articles.value = responsePromise.articles
+      articlesCount.value = response.
     } else {
       throw new Error(`Articles type "${articlesType.value}" not supported`)
     }
