@@ -104,6 +104,10 @@ export default class FetchRequest {
     return this.runUnsafeFetch('POST', url, data, options).then(r => this.handleResponse<T>(r))
   }
 
+  checkablePostGraphql<T = unknown>(data?: unknown, options?: Partial<FetchRequestOptions>): Promise<Either<NetworkError, T>> {
+    return this.runUnsafeFetch('POST','', data, options).then(r => this.handleResponse<T>(r))
+  }
+
   delete<T = unknown>(url: string, options?: Partial<FetchRequestOptions>): Promise<T> {
     return this.runSafeFetch('DELETE', url, options).then(r => this.handleCorrectResponse<T>(r))
   }

@@ -10,7 +10,7 @@ import {
   getFeeds,
   getArticlesByTag,
 } from '../services/article/getArticles'
-import { AllArticle } from 'src/types/article.type'
+import { ArticlePaging } from 'src/dto/article.type'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export function useArticles() {
@@ -22,7 +22,7 @@ export function useArticles() {
 
   async function fetchArticles(): Promise<void> {
     articles.value = []
-    let responsePromise: null | Promise<AllArticle> = null
+    let response: null | Pagination<Article> = null
 
     // if (articlesType.value === 'my-feed') {
     //   responsePromise = getFeeds(page.value)
@@ -37,12 +37,12 @@ export function useArticles() {
     //   responsePromise = getFavoritedArticles(username.value, page.value)
     // }
     if (articlesType.value === 'global-feed') {
-      responsePromise = getArticles(page.value)
+      response = await getArticles(page.value)
     }
 
-    if (responsePromise !== null) {
-      articles.value = responsePromise.articles
-      articlesCount.value = response.
+    if (response !== null) {
+      articles.value = response.results
+      articlesCount.value = response.totalCount;
     } else {
       throw new Error(`Articles type "${articlesType.value}" not supported`)
     }

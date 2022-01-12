@@ -1,16 +1,17 @@
 <template>
   <div class="article-preview">
     <div class="article-meta">
-      <AppLink name="profile" :params="{ username: article.author.email }">
-        <img :src="article.author.profilePicUrl" />
+      <AppLink name="profile" :params="{ username: article.createdBy.email }">
+        <img :src="article.createdBy.profilePicUrl"/>
       </AppLink>
+
       <div class="info">
         <AppLink
           name="profile"
-          :params="{ username: article.author.email }"
+          :params="{ username: article.createdBy.email }"
           class="author"
         >
-          {{ article.author.email }}
+          {{ article.createdBy.email }}
         </AppLink>
         <span class="date">{{
           new Date(article.createdAt).toDateString()
@@ -41,10 +42,10 @@
       <ul class="tag-list">
         <li
           v-for="tag in article.tags"
-          :key="tag._id"
+          :key="tag"
           class="tag-default tag-pill tag-outline"
         >
-          {{ tag.name }}
+          {{ tag }}
         </li>
       </ul>
     </AppLink>
