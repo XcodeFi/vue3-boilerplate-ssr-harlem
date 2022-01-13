@@ -1,8 +1,8 @@
 import { request } from '../index'
 
-import type { ValidationError } from '../../types/error'
+import type { GraphqlError, ValidationError } from '../../types/error'
 
-import { mapValidationResponse } from '../../utils/map-checkable-response'
+import { mapGraphqlResponse, mapValidationResponse } from '../../utils/map-checkable-response'
 import { Either, fail, success } from '../../utils/either'
 import { RegisterReponse } from 'src/dto/user.type'
 
@@ -12,7 +12,7 @@ export interface PostRegisterForm {
   username: string
 }
 
-export type PostRegisterErrors = Partial<Record<keyof PostRegisterForm, string[]>>
+export type PostRegisterErrors = Record<string, string[]>
 
 export async function postRegister(form: PostRegisterForm): Promise<Either<ValidationError<PostRegisterErrors>, User>> {
 
@@ -27,13 +27,13 @@ export async function postRegister(form: PostRegisterForm): Promise<Either<Valid
     }`
   }
 
-
+  debugger
   const result1 = await request.checkablePostGraphql<RegisterReponse>(variables)
 
-  debugger;
+  const result2 = mapGraphqlResponse<PostRegisterErrors, RegisterReponse>(result1)
 
-  const result2 = mapValidationResponse<PostRegisterErrors, RegisterReponse>(result1)
-
-  if (result2.isOk()) return success(result2.value.data.registerUser)
-  else return fail(result2.value)
+  if (result2.isOk())
+    return success(result2.value.data.registerUser)
+  else
+    return fail(result2.value)
 }

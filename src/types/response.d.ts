@@ -22,9 +22,7 @@ abstract class ApiResponse<T> {
 }
 
 abstract class GraphqlResponse<T> {
-  public error: {
-    message: string
-  };
+  public error: Record<{ message: string }, string>;
   public data: T;
 }
 

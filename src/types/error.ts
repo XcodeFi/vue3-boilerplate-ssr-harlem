@@ -28,3 +28,13 @@ export class ValidationError<T extends Partial<Record<string, string[]>>> extend
     return this.response.json().then(json => json.data as T)
   }
 }
+
+export class GraphqlError<T extends Partial<GraphqlResponse<T>>> extends CustomNetworkError {
+  constructor(response: Response) {
+    super('VALIDATION_ERROR', response)
+  }
+
+  getErrors(): Promise<T> {
+    return this.response.json().then(json => json.data as T)
+  }
+}

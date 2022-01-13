@@ -16,10 +16,10 @@ export type PostLoginErrors = Partial<Record<keyof PostLoginForm, string[]>>
 export async function postLogin(form: PostLoginForm): Promise<Either<ValidationError<PostLoginErrors>, Login>> {
 
   const pra = {
-    query:`mutation login {
+    query: `mutation login {
       login(input:{
-        email:"abc1@gmail.com",
-        password:"abc1"
+        email:"${form.email}",
+        password:"${form.password}"
       })
       {
         token
