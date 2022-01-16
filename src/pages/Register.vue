@@ -87,17 +87,17 @@ export default defineComponent({
       password: '',
     })
 
-    const errors = ref<PostRegisterErrors>({})
+    const errors = ref<PostRegisterErrors>()
 
     const register = async () => {
       if (!formRef.value?.checkValidity()) return
 
       const result = await postRegister(form)
       if (result.isOk()) {
-        updateUser(result.value)
+        // updateUser(result.value)
         await router.push({ name: 'global-feed' })
       } else {
-        errors.value = await result.value.getErrors()
+        errors.value = await result.value
       }
     }
 

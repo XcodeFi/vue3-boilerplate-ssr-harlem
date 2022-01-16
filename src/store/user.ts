@@ -32,6 +32,6 @@ export const updateUser = mutation<Login | null>('updateUser', (state: any, user
   } else {
     cookie.set('user', userData)
     request.setAuthorizationHeader(userData.token)
-    state.user = userData.user;
+    state.user = userData.user
   }
 })

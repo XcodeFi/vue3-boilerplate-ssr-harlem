@@ -15,11 +15,11 @@ export interface PostRegisterForm {
   username: string
 }
 
-export type PostRegisterErrors = Record<string, string[]>
+export type PostRegisterErrors = Error[]
 
 export async function postRegister (
   form: PostRegisterForm,
-): Promise<Either<ValidationError<PostRegisterErrors>, User>> {
+): Promise<Either<Error[], User>> {
   const variables = {
     query: `mutation Register {
       registerUser(input:{password: "${form.password}", email: "${form.email}", username: "${form.username}"}) {
@@ -31,12 +31,11 @@ export async function postRegister (
     }`,
   }
 
-  debugger
   const result1 = await request.checkablePostGraphql<RegisterReponse>(
     variables,
   )
 
-  const result2 = mapGraphqlResponse<PostRegisterErrors, RegisterReponse>(
+  const result2 = mapGraphqlResponse<RegisterReponse>(
     result1,
   )
 
