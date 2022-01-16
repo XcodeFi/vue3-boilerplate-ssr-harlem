@@ -1,7 +1,5 @@
 export interface ArticlePaging {
-    allArticles: Pagination<Article>;
+  allArticles: Pagination<Article>
 }
 
-export class ArticleResponseGraphql extends GraphqlResponse<ArticlePaging> {
-
-}
+export class ArticleResponseGraphql extends GraphqlResponse<ArticlePaging> {}

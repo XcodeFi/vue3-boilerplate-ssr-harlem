@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { NetworkError } from '../types/error'
 
 import { Either, fail, success } from './either'
@@ -19,7 +20,7 @@ export default class FetchRequest {
 
   private readonly options: FetchRequestOptions
 
-  constructor(options: Partial<FetchRequestOptions> = {}) {
+  constructor (options: Partial<FetchRequestOptions> = {}) {
     this.options = Object.assign({}, this.defaultOptions, options)
   }
 
@@ -45,9 +46,15 @@ export default class FetchRequest {
     return Promise.resolve(fail(new NetworkError(response)))
   }
 
-  private readonly handleGraphqlResponse = <T>(response: Response): Promise<Either<NetworkError, T>> => {
+  private readonly handleResponseGraphql = <T>(response: Response): Promise<Either<NetworkError, T>> => {
     if (response.ok) {
-      return response.json().then(json => success(json as T))
+      return response.json().then(json => {
+        if (json.data) {
+          return success(json as T)
+        } else {
+          return fail(new NetworkError(response))
+        }
+      })
     }
 
     return Promise.resolve(fail(new NetworkError(response)))
@@ -58,13 +65,13 @@ export default class FetchRequest {
       return response.json()
     }
 
-    console.error('server: error');
-    // @ts-ignore
-    return '';
+    console.error('server: error')
+    // @ts-expect-error
+    return ''
     // throw new NetworkError(response)
   }
 
-  private runFetch({ method, url, data, options }: {
+  private runFetch ({ method, url, data, options }: {
     method: 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH'
     url: string
     data?: unknown
@@ -79,7 +86,7 @@ export default class FetchRequest {
     return fetch(finalUrl, fetchOptions)
   }
 
-  private runSafeFetch(
+  private runSafeFetch (
     method: 'GET' | 'DELETE',
     url: string,
     options?: Partial<FetchRequestOptions>,
@@ -87,7 +94,7 @@ export default class FetchRequest {
     return this.runFetch({ method, url, options })
   }
 
-  private runUnsafeFetch(
+  private runUnsafeFetch (
     method: 'POST' | 'PUT' | 'PATCH',
     url: string,
     data?: unknown,
@@ -113,7 +120,7 @@ export default class FetchRequest {
   }
 
   checkablePostGraphql<T = unknown>(data?: unknown, options?: Partial<FetchRequestOptions>): Promise<Either<NetworkError, T>> {
-    return this.runUnsafeFetch('POST','', data, options).then(r => this.handleResponse<T>(r))
+    return this.runUnsafeFetch('POST', '', data, options).then(r => this.handleResponseGraphql<T>(r))
   }
 
   delete<T = unknown>(url: string, options?: Partial<FetchRequestOptions>): Promise<T> {
@@ -140,11 +147,11 @@ export default class FetchRequest {
     return this.runUnsafeFetch('PATCH', url, data, options).then(r => this.handleResponse<T>(r))
   }
 
-  public setAuthorizationHeader(token: string): void {
+  public setAuthorizationHeader (token: string): void {
     if (token !== '') this.options.headers.Authorization = `Bearer ${token}`
   }
 
-  public deleteAuthorizationHeader(): void {
+  public deleteAuthorizationHeader (): void {
     delete this.options?.headers?.Authorization
   }
 }

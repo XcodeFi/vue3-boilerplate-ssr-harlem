@@ -1,8 +1,15 @@
-import { AuthorizationError, GraphqlError, NetworkError, ValidationError } from '../types/error'
+import {
+  AuthorizationError,
+  GraphqlError,
+  NetworkError,
+  ValidationError,
+} from '../types/error'
 
 import { Either, fail, success } from './either'
 
-export const mapAuthorizationResponse = <T>(result: Either<NetworkError, T>): Either<AuthorizationError, T> => {
+export const mapAuthorizationResponse = <T>(
+  result: Either<NetworkError, T>,
+): Either<AuthorizationError, T> => {
   if (result.isOk()) {
     return success(result.value)
   } else if (result.value.response.status === 401) {
@@ -12,7 +19,9 @@ export const mapAuthorizationResponse = <T>(result: Either<NetworkError, T>): Ei
   }
 }
 
-export const mapValidationResponse = <E, T>(result: Either<NetworkError, T>): Either<ValidationError<E>, T> => {
+export const mapValidationResponse = <E, T>(
+  result: Either<NetworkError, T>,
+): Either<ValidationError<E>, T> => {
   if (result.isOk()) {
     return success(result.value)
   } else if (result.value.response.status === 422) {
@@ -22,14 +31,17 @@ export const mapValidationResponse = <E, T>(result: Either<NetworkError, T>): Ei
   }
 }
 
-export const mapGraphqlResponse = <E, T>(result: Either<NetworkError, T>): Either<GraphqlError<E>, T> => {
+export const mapGraphqlResponse = <T>(
+  result: Either<Error[], T>,
+): Either<Error[], T> => {
   if (result.isOk()) {
     const value = result.value as any
 
-    if (value.data != null)
+    if (value.data != null) {
       return success(result.value)
-    else 
-      return fail(value.errors);
+    } else {
+      return fail(value.errors)
+    }
   } else if (result.value.response.status === 422) {
     return fail(new GraphqlError<E>(result.value.response))
   } else {

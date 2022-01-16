@@ -15,36 +15,36 @@ enum ResponseStatus {
 }
 
 abstract class ApiResponse<T> {
-  public statusCode: StatusCode;
-  public status: ResponseStatus;
-  public message: string;
-  public data: T;
+  public statusCode: StatusCode
+  public status: ResponseStatus
+  public message: string
+  public data: T
 }
 
 abstract class GraphqlResponse<T> {
-  public error: Record<{ message: string }, string>;
-  public data: T;
+  public error: Record<{ message: string }, string>
+  public data: T
 }
 
 interface PaginationInfo {
-  totalCount: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-  page: number | undefined;
-  totalPages: number;
-  nextPage: number | null | undefined;
-  prevPage: number | null | undefined;
+  totalCount: number
+  hasPreviousPage: boolean
+  hasNextPage: boolean
+  page: number | undefined
+  totalPages: number
+  nextPage: number | null | undefined
+  prevPage: number | null | undefined
 }
 
 abstract class Pagination<T> implements PaginationInfo {
-  totalCount: number = 0;
-  hasPreviousPage: boolean = false
-  hasNextPage: boolean = false;
-  page: number | undefined;
-  totalPages: number = 0
-  nextPage: number | null | undefined;
-  prevPage: number | null | undefined;
-  results: T[] | any;
+  totalCount = 0
+  hasPreviousPage = false
+  hasNextPage = false
+  page: number | undefined
+  totalPages = 0
+  nextPage: number | null | undefined
+  prevPage: number | null | undefined
+  results: T[] | any
 }
 
 declare interface UserResponse extends ApiResponse<User> {
