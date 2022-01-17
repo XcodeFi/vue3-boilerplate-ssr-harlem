@@ -31,10 +31,14 @@ export class ValidationError<T extends Partial<Record<string, string[]>>> extend
 
 export class GraphqlError<T extends Error[]> extends CustomNetworkError {
   constructor (response: Response) {
-    super('VALIDATION_ERROR', response)
+    super('GRAPHQL_ERROR', response)
   }
 
   getErrors (): Promise<T> {
-    return this.response.json().then(json => json.errors as T)
+    return this.response.json().then(json => {
+      // eslint-disable-next-line no-debugger
+      debugger
+      return json.errors as T
+    })
   }
 }

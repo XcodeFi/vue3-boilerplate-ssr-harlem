@@ -19,10 +19,15 @@ export type PostRegisterErrors = Error[]
 
 export async function postRegister (
   form: PostRegisterForm,
-): Promise<Either<Error[], User>> {
+): Promise<Either<GraphqlError<Error[]>, User>> {
   const variables = {
     query: `mutation Register {
-      registerUser(input:{password: "${form.password}", email: "${form.email}", username: "${form.username}"}) {
+      registerUser(input:
+        {
+          password: "${form.password}",
+          email: "${form.email}",
+          username: "${form.username}"
+        }) {
         id
         email
         username
@@ -35,7 +40,7 @@ export async function postRegister (
     variables,
   )
 
-  const result2 = mapGraphqlResponse<RegisterReponse>(
+  const result2 = mapGraphqlResponse<Error[], RegisterReponse>(
     result1,
   )
 

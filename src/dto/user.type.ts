@@ -1,7 +1,6 @@
 interface RegisterUser {
-    registerUser: User
+  registerUser: User
 }
 
-export class RegisterReponse extends  GraphqlResponse<RegisterUser>{
+export class RegisterReponse extends GraphqlResponse<RegisterUser> {
 }
-

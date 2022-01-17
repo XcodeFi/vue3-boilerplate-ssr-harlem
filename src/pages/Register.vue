@@ -93,11 +93,12 @@ export default defineComponent({
       if (!formRef.value?.checkValidity()) return
 
       const result = await postRegister(form)
+      debugger
       if (result.isOk()) {
         // updateUser(result.value)
         await router.push({ name: 'global-feed' })
       } else {
-        errors.value = await result.value
+        errors.value = await result.value.getErrors()
       }
     }
 

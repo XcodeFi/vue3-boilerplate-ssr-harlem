@@ -52,7 +52,7 @@ export default class FetchRequest {
         if (json.data) {
           return success(json as T)
         } else {
-          return fail(new NetworkError(response))
+          return Promise.resolve(fail(new NetworkError(response)))
         }
       })
     }

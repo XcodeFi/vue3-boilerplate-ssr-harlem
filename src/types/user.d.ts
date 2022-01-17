@@ -7,7 +7,7 @@ declare interface Profile {
 
 declare interface Profile1 {
   email: string
-  profilePicUrl: string,
+  profilePicUrl: string
   following: boolean
 }
 
@@ -21,7 +21,7 @@ declare interface User {
 }
 
 declare interface Login{
-  token: string;
-  success: boolean;
+  token: string
+  success: boolean
   user: User
 }
