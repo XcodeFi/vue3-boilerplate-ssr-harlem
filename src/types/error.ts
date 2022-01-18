@@ -38,7 +38,7 @@ export class GraphqlError<T extends Error[]> extends CustomNetworkError {
     return this.response.json().then(json => {
       // eslint-disable-next-line no-debugger
       debugger
-      return json.errors as T
+      return json.data as T
     })
   }
 }
