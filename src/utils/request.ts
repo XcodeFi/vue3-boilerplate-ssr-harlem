@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { NetworkError } from '../types/error'
+import { GraphqlError, NetworkError } from '../types/error'
 
 import { Either, fail, success } from './either'
 import params2query from './params-to-query'
@@ -52,7 +52,7 @@ export default class FetchRequest {
         if (json.data) {
           return success(json as T)
         } else {
-          return Promise.resolve(fail(new NetworkError(response)))
+          return fail(new GraphqlError(response))
         }
       })
     }

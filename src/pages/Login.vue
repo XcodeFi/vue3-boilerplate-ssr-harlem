@@ -79,7 +79,7 @@ export default defineComponent({
       password: ''
     })
 
-    const errors = ref<PostLoginErrors>({})
+    const errors = ref<Error[]>()
 
     const login = async () => {
       if (!formRef.value?.checkValidity()) return

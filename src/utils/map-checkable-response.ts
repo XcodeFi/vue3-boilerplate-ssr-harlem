@@ -35,7 +35,6 @@ export const mapGraphqlResponse = <E extends Error[], T>(
   result: Either<NetworkError, T>,
 ): Either<GraphqlError<E>, T> => {
   if (result.isOk()) {
-    const value = result.value as any
     return success(result.value)
   } else if (result.value.response.status === 200) {
     return fail(new GraphqlError<E>(result.value.response))
