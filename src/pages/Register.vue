@@ -14,10 +14,10 @@
 
           <ul class="error-messages">
             <li
-              v-for="(error, field) in errors"
-              :key="field"
+              v-for="(error, i) in errors"
+              :key="i"
             >
-              {{ field }} {{ error ? error[0] : '' }}
+              {{ error ? error.message : '' }}
             </li>
           </ul>
 
@@ -93,12 +93,11 @@ export default defineComponent({
       if (!formRef.value?.checkValidity()) return
 
       const result = await postRegister(form)
-      debugger
       if (result.isOk()) {
         // updateUser(result.value)
         await router.push({ name: 'global-feed' })
       } else {
-        errors.value = await result.value.getErrors()
+        errors.value = await result.value
       }
     }
 

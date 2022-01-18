@@ -14,10 +14,10 @@
 
           <ul class="error-messages">
             <li
-              v-for="(error, field) in errors"
-              :key="field"
+              v-for="(error, i) in errors"
+              :key="i"
             >
-            {{ error ? error.join(', ') : '' }}
+              {{ error ? error.message: '' }}
             </li>
           </ul>
 
@@ -90,7 +90,7 @@ export default defineComponent({
         // await router.push({ name: 'global-feed' })
         await router.go(-1)
       } else {
-        errors.value = await result.value.getErrors()
+        errors.value = await result.value
       }
     }
 

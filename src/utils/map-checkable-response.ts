@@ -33,11 +33,14 @@ export const mapValidationResponse = <E, T>(
 
 export const mapGraphqlResponse = <E extends Error[], T>(
   result: Either<NetworkError, T>,
-): Either<GraphqlError<E>, T> => {
+): Either<E, T> => {
   if (result.isOk()) {
-    return success(result.value)
-  } else if (result.value.response.status === 200) {
-    return fail(new GraphqlError<E>(result.value.response))
+    const value = result.value as any
+    if (value.data) {
+      return success(value.data as T)
+    } else {
+      return fail(value.errors as E)
+    }
   } else {
     throw result.value
   }

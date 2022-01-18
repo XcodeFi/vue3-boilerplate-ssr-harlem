@@ -49,11 +49,7 @@ export default class FetchRequest {
   private readonly handleResponseGraphql = <T>(response: Response): Promise<Either<NetworkError, T>> => {
     if (response.ok) {
       return response.json().then(json => {
-        if (json.data) {
-          return success(json as T)
-        } else {
-          return fail(new GraphqlError(response))
-        }
+        return success(json as T)
       })
     }
 

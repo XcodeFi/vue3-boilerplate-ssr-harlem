@@ -1,10 +1,7 @@
 import { request } from '../index'
 
-import type { GraphqlError, ValidationError } from '../../types/error'
-
 import {
   mapGraphqlResponse,
-  mapValidationResponse,
 } from '../../utils/map-checkable-response'
 import { Either, fail, success } from '../../utils/either'
 import { RegisterReponse } from 'src/dto/user.type'
@@ -19,7 +16,7 @@ export type PostRegisterErrors = Error[]
 
 export async function postRegister (
   form: PostRegisterForm,
-): Promise<Either<GraphqlError<Error[]>, User>> {
+): Promise<Either<Error[], User>> {
   const variables = {
     query: `mutation Register {
       registerUser(input:

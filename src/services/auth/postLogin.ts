@@ -1,11 +1,7 @@
-import { GraphqlError } from './../../types/error';
 import { request } from '../index'
 
-import type { ValidationError } from '../../types/error'
-
-import { mapGraphqlResponse, mapValidationResponse } from '../../utils/map-checkable-response'
+import { mapGraphqlResponse } from '../../utils/map-checkable-response'
 import { Either, fail, success } from '../../utils/either'
-import { useQuery } from 'villus'
 
 export interface PostLoginForm {
   email: string
@@ -16,7 +12,7 @@ export type PostLoginErrors = Partial<Record<keyof PostLoginForm, string[]>>
 
 export async function postLogin (
   form: PostLoginForm,
-): Promise<Either<GraphqlError<Error[]>, Login>> {
+): Promise<Either<Error[], Login>> {
   const pra = {
     query: `mutation login {
       login(input:{
@@ -34,13 +30,12 @@ export async function postLogin (
     }`,
   }
 
-  const result3 = await request.checkablePostGraphql<UserResponseGraphql>(pra)
+  const result3 = await request.checkablePostGraphql<Login>(pra)
 
-  debugger
-  const result2 = mapGraphqlResponse<Error[], UserResponseGraphql>(
+  const result2 = mapGraphqlResponse<Error[], Login>(
     result3,
   )
 
-  if (result2.isOk()) return success(result2.value.data)
+  if (result2.isOk()) return success(result2.value)
   else return fail(result2.value)
 }
