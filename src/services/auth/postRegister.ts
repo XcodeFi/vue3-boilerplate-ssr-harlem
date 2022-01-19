@@ -4,15 +4,13 @@ import {
   mapGraphqlResponse,
 } from '../../utils/map-checkable-response'
 import { Either, fail, success } from '../../utils/either'
-import { RegisterReponse } from 'src/dto/user.type'
+import { RegisterReponse, RegisterUser } from 'src/dto/user.type'
 
 export interface PostRegisterForm {
   email: string
   password: string
   username: string
 }
-
-export type PostRegisterErrors = Error[]
 
 export async function postRegister (
   form: PostRegisterForm,
@@ -33,14 +31,14 @@ export async function postRegister (
     }`,
   }
 
-  const result1 = await request.checkablePostGraphql<RegisterReponse>(
+  const result1 = await request.checkablePostGraphql<RegisterUser>(
     variables,
   )
 
-  const result2 = mapGraphqlResponse<Error[], RegisterReponse>(
+  const result2 = mapGraphqlResponse<Error[], RegisterUser>(
     result1,
   )
 
-  if (result2.isOk()) return success(result2.value.data.registerUser)
+  if (result2.isOk()) return success(result2.value.registerUser)
   else return fail(result2.value)
 }

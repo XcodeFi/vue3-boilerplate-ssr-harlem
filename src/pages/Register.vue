@@ -71,7 +71,7 @@
 import { defineComponent, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { postRegister, PostRegisterForm, PostRegisterErrors } from '../services/auth/postRegister'
+import { postRegister, PostRegisterForm } from '../services/auth/postRegister'
 
 import { updateUser } from '../store/user'
 
@@ -87,14 +87,14 @@ export default defineComponent({
       password: '',
     })
 
-    const errors = ref<PostRegisterErrors>()
+    const errors = ref<Error[]>()
 
     const register = async () => {
       if (!formRef.value?.checkValidity()) return
 
       const result = await postRegister(form)
       if (result.isOk()) {
-        // updateUser(result.value)
+        updateUser(result.value)
         await router.push({ name: 'global-feed' })
       } else {
         errors.value = await result.value

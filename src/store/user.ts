@@ -24,7 +24,7 @@ export const checkAuthorization = (user: ComputedRef<User | null>): user is Comp
   return user.value !== null
 }
 
-export const updateUser = mutation<Login | null>('updateUser', (state: any, userData: any) => {
+export const updateUser = mutation<User | null>('updateUser', (state: any, userData: any) => {
   if (userData === undefined || userData === null) {
     cookie.remove('user')
     request.deleteAuthorizationHeader()
@@ -32,6 +32,6 @@ export const updateUser = mutation<Login | null>('updateUser', (state: any, user
   } else {
     cookie.set('user', userData)
     request.setAuthorizationHeader(userData.token)
-    state.user = userData.user
+    state.user = userData
   }
 })

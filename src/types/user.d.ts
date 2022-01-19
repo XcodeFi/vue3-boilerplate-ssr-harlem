@@ -20,7 +20,7 @@ declare interface User {
   token: string
 }
 
-declare interface Login{
+declare interface LoginRes {
   token: string
   success: boolean
   user: User

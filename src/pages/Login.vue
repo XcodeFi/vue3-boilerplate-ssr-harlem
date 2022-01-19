@@ -76,7 +76,7 @@ export default defineComponent({
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<PostLoginForm>({
       email: '',
-      password: ''
+      password: '',
     })
 
     const errors = ref<Error[]>()
@@ -86,7 +86,9 @@ export default defineComponent({
 
       const result = await postLogin(form)
       if (result.isOk()) {
-        updateUser(result.value)
+        const user = result.value.user
+        user.token = result.value.token
+        updateUser(user)
         // await router.push({ name: 'global-feed' })
         await router.go(-1)
       } else {

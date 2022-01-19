@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 enum StatusCode {
   SUCCESS = '10000',
   FAILURE = '10001',
@@ -22,7 +23,7 @@ abstract class ApiResponse<T> {
 }
 
 abstract class GraphqlResponse<T> {
-  public error: Record<{ message: string }, string>
+  public errors: Error[]
   public data: T
 }
 
@@ -50,7 +51,7 @@ abstract class Pagination<T> implements PaginationInfo {
 declare interface UserResponse extends ApiResponse<User> {
 }
 
-declare interface UserResponseGraphql extends GraphqlResponse<Login> {
+declare interface UserResponseGraphql extends GraphqlResponse<LoginRes> {
 }
 
 declare interface TagsResponse extends ApiResponse<Tag[]> {

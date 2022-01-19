@@ -1,4 +1,4 @@
-interface RegisterUser {
+export interface RegisterUser {
   registerUser: User
 }
 

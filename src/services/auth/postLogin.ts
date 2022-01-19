@@ -12,7 +12,7 @@ export type PostLoginErrors = Partial<Record<keyof PostLoginForm, string[]>>
 
 export async function postLogin (
   form: PostLoginForm,
-): Promise<Either<Error[], Login>> {
+): Promise<Either<Error[], LoginRes>> {
   const pra = {
     query: `mutation login {
       login(input:{
@@ -30,12 +30,12 @@ export async function postLogin (
     }`,
   }
 
-  const result3 = await request.checkablePostGraphql<Login>(pra)
+  const result3 = await request.checkablePostGraphql<{login: LoginRes}>(pra)
 
-  const result2 = mapGraphqlResponse<Error[], Login>(
+  const result2 = mapGraphqlResponse<Error[], {login: LoginRes}>(
     result3,
   )
 
-  if (result2.isOk()) return success(result2.value)
+  if (result2.isOk()) return success(result2.value.login)
   else return fail(result2.value)
 }
