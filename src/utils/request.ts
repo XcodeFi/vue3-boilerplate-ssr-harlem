@@ -4,6 +4,7 @@ import { GraphqlError, NetworkError } from '../types/error'
 import { Either, fail, success } from './either'
 import params2query from './params-to-query'
 import fetch from 'cross-fetch'
+import { mapGraphqlResponse } from './map-checkable-response'
 
 export interface FetchRequestOptions {
   prefix: string
@@ -115,8 +116,14 @@ export default class FetchRequest {
     return this.runUnsafeFetch('POST', url, data, options).then(r => this.handleResponse<T>(r))
   }
 
-  checkablePostGraphql<T = unknown>(data?: unknown, options?: Partial<FetchRequestOptions>): Promise<Either<NetworkError, T>> {
-    return this.runUnsafeFetch('POST', '', data, options).then(r => this.handleResponseGraphql<T>(r))
+  async checkablePostGraphql<T = unknown>(data?: unknown, options?: Partial<FetchRequestOptions>): Promise<Either<Error[], T>> {
+    const result1 = await this.checkablePost<T>('', data)
+    const result2 = mapGraphqlResponse<Error[], T>(
+      result1,
+    )
+
+    if (result2.isOk()) return success(result2.value)
+    else return fail(result2.value)
   }
 
   delete<T = unknown>(url: string, options?: Partial<FetchRequestOptions>): Promise<T> {

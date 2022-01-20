@@ -31,14 +31,10 @@ export async function postRegister (
     }`,
   }
 
-  const result1 = await request.checkablePostGraphql<RegisterUser>(
+  const result = await request.checkablePostGraphql<RegisterUser>(
     variables,
   )
 
-  const result2 = mapGraphqlResponse<Error[], RegisterUser>(
-    result1,
-  )
-
-  if (result2.isOk()) return success(result2.value.registerUser)
-  else return fail(result2.value)
+  if (result.isOk()) return success(result.value.registerUser)
+  else return fail(result.value)
 }

@@ -30,12 +30,8 @@ export async function postLogin (
     }`,
   }
 
-  const result3 = await request.checkablePostGraphql<{login: LoginRes}>(pra)
+  const result = await request.checkablePostGraphql<{login: LoginRes}>(pra)
 
-  const result2 = mapGraphqlResponse<Error[], {login: LoginRes}>(
-    result3,
-  )
-
-  if (result2.isOk()) return success(result2.value.login)
-  else return fail(result2.value)
+  if (result.isOk()) return success(result.value.login)
+  else return fail(result.value)
 }
