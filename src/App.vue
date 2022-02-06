@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { useClient } from 'villus';
+import { useClient } from 'villus'
 import { defineComponent } from 'vue'
 import AppFooter from './components/AppFooter.vue'
 import AppNavigation from './components/AppNavigation.vue'
@@ -17,10 +17,10 @@ export default defineComponent({
     AppNavigation,
     AppFooter,
   },
-  setup(){
+  setup () {
     // useClient({
     //   url: CONFIG.API_HOST,
     // });
-  }
+  },
 })
 </script>

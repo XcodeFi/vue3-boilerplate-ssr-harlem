@@ -1,10 +1,7 @@
 import { request } from '../index'
 
-import {
-  mapGraphqlResponse,
-} from '../../utils/map-checkable-response'
 import { Either, fail, success } from '../../utils/either'
-import { RegisterReponse, RegisterUser } from 'src/dto/user.type'
+import { RegisterUser } from 'src/dto/user.type'
 
 export interface PostRegisterForm {
   email: string
@@ -31,9 +28,9 @@ export async function postRegister (
     }`,
   }
 
-  const result = await request.checkablePostGraphql<RegisterUser>(
-    variables,
-  )
+  const result = await request.checkablePostGraphql<{
+    registerUser: User
+  }>(variables)
 
   if (result.isOk()) return success(result.value.registerUser)
   else return fail(result.value)
