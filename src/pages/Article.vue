@@ -5,7 +5,9 @@
         <ArticleDetail />
       </template>
       <template #fallback>
-        <div class="container page">Article is downloading...</div>
+        <div class="container page">
+          Article is downloading...
+        </div>
       </template>
     </Suspense>
 
@@ -18,23 +20,25 @@
         </div>
       </template>
       <template #fallback>
-        <div class="container page">Comments are downloading...</div>
+        <div class="container page">
+          Comments are downloading...
+        </div>
       </template>
     </Suspense>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
-import ArticleDetail from "../components/ArticleDetail.vue";
-import ArticleDetailComments from "../components/ArticleDetailComments.vue";
+import ArticleDetail from '../components/ArticleDetail.vue'
+import ArticleDetailComments from '../components/ArticleDetailComments.vue'
 
 export default defineComponent({
-  name: "ArticlePage",
+  name: 'ArticlePage',
   components: {
     ArticleDetail,
     ArticleDetailComments,
   },
-});
+})
 </script>
