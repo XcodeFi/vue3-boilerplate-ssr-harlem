@@ -49,7 +49,7 @@ Promise<Either<Error[], Article>> {
     }`,
   }
 
-  const result = await request.checkablePostGraphql<{
+  const result = await requestAuthorize.checkablePostGraphql<{
     createArticle: Article
   }>(variables)
 
