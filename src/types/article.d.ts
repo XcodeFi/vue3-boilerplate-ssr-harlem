@@ -6,8 +6,8 @@ declare interface Article {
   id: string
   title: string
   description: string
-  text?: string
-  draftText?: string
+  text: string
+  draftText: string
   tags: string[]
   imgUrl?: string
   blogUrl: string

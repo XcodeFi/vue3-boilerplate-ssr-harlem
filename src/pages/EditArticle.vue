@@ -84,7 +84,7 @@ import {
 } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getArticle } from '../services/article/getArticle'
-import { postArticle, postArticleGraphql, putArticle } from '../services/article/postArticle'
+import { postArticleGraphql, putArticle } from '../services/article/postArticle'
 import toSlug from '../utils/common'
 
 interface FormState {
@@ -128,7 +128,7 @@ export default defineComponent({
       form.title = article.title
       form.description = article.description
       form.text = article.text
-      form.tags = article.tags.map(t => t.name)
+      form.tags = article.tags.map(t => t)
     }
 
     onMounted(() => {
@@ -143,7 +143,23 @@ export default defineComponent({
     )
 
     const onSubmit = async () => {
-      let article: Article
+      let article: Article = {
+        favorited: false,
+        favoritesCount: 0,
+        favoritedUsers: [],
+        id: '',
+        title: '',
+        description: '',
+        text: '',
+        draftText: '',
+        tags: [],
+        blogUrl: '',
+        score: 0,
+        isSubmitted: false,
+        isDraft: false,
+        isPublished: false
+      }
+
       if (slug.value) {
         article = await putArticle(slug.value, form)
       } else {

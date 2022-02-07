@@ -1,5 +1,5 @@
+import { checkAuthorization } from './../store/user'
 /* eslint-disable @typescript-eslint/no-extraneous-class */
-import { fetch } from 'cross-fetch'
 import { CONFIG } from '../config'
 import FetchRequest, { FetchRequestOptions } from '../utils/request'
 import { user } from '../store/user'
