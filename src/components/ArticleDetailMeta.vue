@@ -1,7 +1,10 @@
 <template>
   <div class="article-meta">
-    <AppLink name="profile" :params="{ username: article.author.email }">
-      <img :src="article.author.profilePicUrl" />
+    <AppLink
+      name="profile"
+      :params="{ username: article.author.email }"
+    >
+      <img :src="article.author.profilePicUrl">
     </AppLink>
 
     <div class="info">
@@ -66,72 +69,74 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from "vue";
-import { useRouter } from "vue-router";
+import { computed, defineComponent, PropType, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 
-import { deleteArticle } from "../services/article/deleteArticle";
+import { deleteArticle } from '../services/article/deleteArticle'
 
-import { useFavoriteArticle } from "../composable/useFavoriteArticle";
-import { useFollow } from "../composable/useFollowProfile";
+import { useFavoriteArticle } from '../composable/useFavoriteArticle'
+import { useFollow } from '../composable/useFollowProfile'
 
-import { user, checkAuthorization } from "../store/user";
+import { user, checkAuthorization } from '../store/user'
 
 export default defineComponent({
-  name: "ArticleDetailMeta",
+  name: 'ArticleDetailMeta',
   props: {
     article: { type: Object as PropType<Article>, required: true },
   },
   emits: {
     update: (article: Article) => !!article.blogUrl,
   },
-  setup(props, { emit }) {
-    const router = useRouter();
+  setup (props, { emit }) {
+    const router = useRouter()
 
-    const { article } = toRefs(props);
+    const { article } = toRefs(props)
     const displayEditButton = computed(
       () =>
         checkAuthorization(user) &&
-        user.value.email === article.value.author.email
-    );
+        typeof article.value.createdBy === 'object' &&
+        user.value.email === article.value.createdBy.email,
+    )
 
     const favorited = computed(
       () =>
         checkAuthorization(user) &&
         article.value.favoritedUsers.find(
-          (t) => t.email === user.value?.email
-        ) != null
-    );
+          (t) => t.email === user.value?.email,
+        ) != null,
+    )
 
-    const favoritesCount = computed(() => article.value.favoritedUsers.length);
+    const favoritesCount = computed(() => article.value.favoritedUsers.length)
 
-    article.value.favorited = favorited.value;
-    article.value.favoritesCount = favoritesCount.value;
+    article.value.favorited = favorited.value
+    article.value.favoritesCount = favoritesCount.value
 
     const displayFollowButton = computed(
       () =>
         checkAuthorization(user) &&
-        user.value.email !== article.value.author.email
-    );
+        typeof article.value.createdBy === 'object' &&
+        user.value.email !== article.value.createdBy.email,
+    )
 
     const { favoriteProcessGoing, favoriteArticle } = useFavoriteArticle({
       isFavorited: computed(() => article.value.favorited),
       articleSlug: computed(() => article.value.blogUrl),
-      onUpdate: (newArticle) => emit("update", newArticle),
-    });
+      onUpdate: (newArticle) => emit('update', newArticle),
+    })
 
     const onDelete = async () => {
-      await deleteArticle(article.value.blogUrl);
-      await router.push({ name: "global-feed" });
-    };
+      await deleteArticle(article.value.blogUrl)
+      await router.push({ name: 'global-feed' })
+    }
 
     const { followProcessGoing, toggleFollow } = useFollow({
-      following: computed(() => article.value.author.following),
-      username: computed(() => article.value.author.email),
+      following: computed(() => article.value.createdBy.following),
+      username: computed(() => article.value.createdBy.email),
       onUpdate: (author: Profile1) => {
-        const newArticle = { ...article.value, author };
-        emit("update", newArticle);
+        const newArticle = { ...article.value, author }
+        emit('update', newArticle)
       },
-    });
+    })
 
     return {
       displayEditButton,
@@ -141,9 +146,9 @@ export default defineComponent({
       favoriteArticle,
       followProcessGoing,
       toggleFollow,
-    };
+    }
   },
-});
+})
 </script>
 
 <style scoped>

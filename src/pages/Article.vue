@@ -11,7 +11,7 @@
       </template>
     </Suspense>
 
-    <Suspense>
+    <!-- <Suspense>
       <template #default>
         <div class="row">
           <div class="col-xs-12 col-md-8 offset-md-2">
@@ -24,7 +24,7 @@
           Comments are downloading...
         </div>
       </template>
-    </Suspense>
+    </Suspense> -->
   </div>
 </template>
 
@@ -32,13 +32,13 @@
 import { defineComponent } from 'vue'
 
 import ArticleDetail from '../components/ArticleDetail.vue'
-import ArticleDetailComments from '../components/ArticleDetailComments.vue'
+// import ArticleDetailComments from '../components/ArticleDetailComments.vue'
 
 export default defineComponent({
   name: 'ArticlePage',
   components: {
     ArticleDetail,
-    ArticleDetailComments,
+    // ArticleDetailComments,
   },
 })
 </script>

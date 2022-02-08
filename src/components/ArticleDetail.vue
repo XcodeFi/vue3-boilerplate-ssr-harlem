@@ -55,6 +55,7 @@ export default defineComponent({
     ArticleDetailMeta,
   },
   async setup () {
+    debugger
     const route = useRoute()
     const slug = route.params.slug as string
     const article = reactive<Article>(await getArticle(slug))

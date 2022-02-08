@@ -157,7 +157,9 @@ export default defineComponent({
         score: 0,
         isSubmitted: false,
         isDraft: false,
-        isPublished: false
+        isPublished: false,
+        createdBy: '',
+        createdAt: undefined,
       }
 
       if (slug.value) {

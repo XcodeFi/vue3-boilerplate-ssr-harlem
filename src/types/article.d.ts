@@ -18,7 +18,7 @@ declare interface Article {
   isPublished: boolean
   status?: boolean
   publishedAt?: Date
-  createdBy?: User | string
+  createdBy: User | string
   updatedBy?: User | string
   createdAt?: Date
   updatedAt?: Date
