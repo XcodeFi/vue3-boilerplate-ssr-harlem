@@ -13,14 +13,14 @@ import {
 import { ArticlePaging } from 'src/dto/article.type'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
-export function useArticles() {
+export function useArticles () {
   const { articlesType, tag, username, metaChanged } = getArticlesMeta()
 
   const articles = ref<Article[]>([])
   const articlesCount = ref(0)
   const page = ref(1)
 
-  async function fetchArticles(): Promise<void> {
+  async function fetchArticles (): Promise<void> {
     articles.value = []
     let response: null | Pagination<Article> = null
 
@@ -42,7 +42,7 @@ export function useArticles() {
 
     if (response !== null) {
       articles.value = response.results
-      articlesCount.value = response.totalCount;
+      articlesCount.value = response.totalCount
     } else {
       throw new Error(`Articles type "${articlesType.value}" not supported`)
     }
@@ -98,7 +98,7 @@ interface GetArticlesMetaReturn {
   articlesType: ComputedRef<ArticlesType>
   metaChanged: ComputedRef<string>
 }
-function getArticlesMeta(): GetArticlesMetaReturn {
+function getArticlesMeta (): GetArticlesMetaReturn {
   const route = useRoute()
 
   const tag = ref('')

@@ -130,8 +130,10 @@ export default defineComponent({
     }
 
     const { followProcessGoing, toggleFollow } = useFollow({
-      following: computed(() => article.value.createdBy.following),
-      username: computed(() => article.value.createdBy.email),
+      following: computed(() => true,
+      // article.value.createdBy.following
+      ),
+      username: computed(() => (article.value.createdBy as User).email),
       onUpdate: (author: Profile1) => {
         const newArticle = { ...article.value, author }
         emit('update', newArticle)
