@@ -81,9 +81,9 @@ export default defineComponent({
 .main-header {
   @apply relative w-full px-3;
   @apply bg-transparent;
-  @apply flex flex-row;
+  @apply flex content-center items-center;
   @apply h-14;
-  @apply justify-between py-2;
+  @apply  py-2;
   @apply bg-green-500;
 }
 
