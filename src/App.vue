@@ -1,31 +1,26 @@
 <template>
-  <AppHeader />
+  <!-- <AppHeader /> -->
   <AppNavigation />
-  <RouterView />
-  <AppFooter />
+  <!--  <RouterView /> -->
+  <!-- <AppFooter /> -->
 </template>
 
 <script lang="ts">
-import { useClient } from 'villus'
 import { defineComponent } from 'vue'
-import AppFooter from './components/AppFooter.vue'
+// import AppFooter from './components/AppFooter.vue'
 import AppNavigation from './components/AppNavigation.vue'
 import AppHeader from './components/AppHeader.vue'
-import { CONFIG } from './config'
+// import { CONFIG } from './config'
 import 'virtual:windi.css'
 
 export default defineComponent({
   name: 'App',
   components: {
     AppNavigation,
-    AppFooter,
-    AppHeader,
+    // AppFooter,
+    // AppHeader,
   },
-  setup() {
-    // useClient({
-    //   url: CONFIG.API_HOST,
-    // });
-  },
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
 })
 </script>
 
@@ -38,11 +33,6 @@ export default defineComponent({
 
 *:focus {
   outline: none !important;
-  box-shadow: unset !important;;
+  box-shadow: unset !important;
 }
-
-// * {
-//   outline-color: red;
-//   outline-style: solid;
-// }
 </style>

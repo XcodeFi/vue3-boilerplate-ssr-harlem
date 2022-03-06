@@ -4,7 +4,6 @@
       <div class="search-bar">
         <svg
           viewBox="0 0 14 14"
-          xmlns="http://www.w3.org/2000/svg"
           class="search-bar__search-icon"
         >
           <g fill-rule="evenodd">
@@ -47,11 +46,8 @@
           </div>
         </div>
         <div class="user-icon">
-          <a
-            class="_1FD9d-"
-          ><svg
+          <a><svg
             viewBox="0 0 28 28"
-            xmlns="http://www.w3.org/2000/svg"
             class="GXALos"
             width="24"
             height="24"
@@ -83,7 +79,7 @@ export default defineComponent({
   @apply bg-transparent;
   @apply flex content-center items-center;
   @apply h-14;
-  @apply  py-2;
+  @apply py-2;
   @apply bg-green-500;
 }
 
