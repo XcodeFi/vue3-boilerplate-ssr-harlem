@@ -1,10 +1,7 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <AppLink
-        class="navbar-brand"
-        name="global-feed"
-      >
+      <AppLink class="navbar-brand" name="global-feed">
         conduit
       </AppLink>
 
@@ -20,10 +17,8 @@
             :name="link.name"
             :params="link.params"
           >
-            <i
-              v-if="link.icon"
-              :class="link.icon"
-            /> {{ link.title }}
+            <i v-if="link.icon" :class="link.icon" />
+            {{ link.title }}
           </AppLink>
         </li>
       </ul>
@@ -47,9 +42,11 @@ interface NavLink {
 
 export default defineComponent({
   name: 'AppNavigation',
-  setup () {
+  setup() {
     const username = computed(() => user.value?.email)
-    const displayStatus = computed(() => username.value ? 'authorized' : 'anonym')
+    const displayStatus = computed(() =>
+      username.value ? 'authorized' : 'anonym',
+    )
 
     const allNavLinks = computed<NavLink[]>(() => [
       {
@@ -87,9 +84,13 @@ export default defineComponent({
       },
     ])
 
-    const navLinks = computed(() => allNavLinks.value.filter(
-      l => l.display === displayStatus.value || l.display === 'all',
-    ))
+    const navLinks = computed(() =>
+      allNavLinks.value.filter(
+        (l) =>
+          l.display === displayStatus.value ||
+          l.display === 'all',
+      ),
+    )
 
     return {
       navLinks,

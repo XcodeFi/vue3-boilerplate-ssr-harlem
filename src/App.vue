@@ -1,6 +1,6 @@
 <template>
-  <!-- <AppHeader /> -->
-  <AppNavigation />
+  <AppHeader />
+  <!-- <AppNavigation /> -->
   <!--  <RouterView /> -->
   <!-- <AppFooter /> -->
 </template>
@@ -16,7 +16,8 @@ import 'virtual:windi.css'
 export default defineComponent({
   name: 'App',
   components: {
-    AppNavigation,
+    AppHeader,
+    // AppNavigation,
     // AppFooter,
     // AppHeader,
   },
